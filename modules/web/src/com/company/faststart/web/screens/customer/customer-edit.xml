@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.faststart.web.screens.customer">
+    <data>
+        <instance id="customerDc"
+                  class="com.company.faststart.entity.Customer"
+                  view="_local">
+            <loader/>
+        </instance>
+        <collection id="ordersDc" class="com.company.faststart.entity.Order" view="_local">
+            <loader id="ordersDl" firstResult="0" maxResults="0">
+                <query>
+                    <![CDATA[select e from faststart_Order e where e.customer = :customer]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="customerDc">
+            <column width="250px">
+                <textField id="nameField" property="name"/>
+                <textField id="emailField" property="email"/>
+                <label value="Orders"/>
+            </column>
+        </form>
+        <table id="ordersDcTable" dataContainer="ordersDc" height="200px" width="300px">
+            <columns>
+                <column id="date"/>
+                <column id="amount"/>
+            </columns>
+        </table>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>
